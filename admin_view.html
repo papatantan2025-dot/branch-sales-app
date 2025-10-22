@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<h4>Admin Dashboard</h4>
+<div class="mb-3">
+  <a class="btn btn-outline-primary" href="{{ url_for('export_csv') }}">Export CSV</a>
+</div>
+<h5>Totals per Branch</h5>
+<table class="table table-sm">
+  <thead><tr><th>Branch</th><th>Total Sales</th><th>Total Rooms (AM+PM)</th></tr></thead>
+  <tbody>
+    {% for t in totals %}
+      <tr><td>{{ t.branch_name }}</td><td>{{ t.total }}</td><td>{{ t.total_rooms }}</td></tr>
+    {% else %}
+      <tr><td colspan="3">No data yet.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h5>All Entries</h5>
+<table class="table table-sm table-striped">
+  <thead><tr><th>ID</th><th>Branch</th><th>Date</th><th>AM Sales</th><th>AM Rooms</th><th>PM Sales</th><th>PM Rooms</th><th>Total</th><th>Created</th></tr></thead>
+  <tbody>
+    {% for r in rows %}
+      <tr>
+        <td>{{ r.id }}</td><td>{{ r.branch_name }}</td><td>{{ r.date }}</td><td>{{ r.am_sales }}</td><td>{{ r.am_rooms }}</td><td>{{ r.pm_sales }}</td><td>{{ r.pm_rooms }}</td><td>{{ r.total_sales }}</td><td>{{ r.created_at }}</td>
+      </tr>
+    {% else %}
+      <tr><td colspan="9">No entries yet.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
